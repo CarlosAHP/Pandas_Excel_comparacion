@@ -8,6 +8,7 @@ on:
       - "src/**"
       - "config/**"
       - "comparador.spec"
+      - "prepare_build.py"
       - "requirements.txt"
       - ".github/workflows/build-windows.yml"
 
@@ -26,20 +27,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt -r requirements-build.txt
 
+      - name: Embed Supabase credentials in build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python prepare_build.py
+
       - name: Build executable
         run: pyinstaller comparador.spec --noconfirm --clean
-
-      - name: Add user docs to dist
-        run: |
-          copy LEEME_USUARIO.txt dist\
-          copy .env.example dist\.env.example
 
       - name: Upload EXE artifact
         uses: actions/upload-artifact@v4
         with:
           name: ComparadorCotizaciones-Windows
-          path: |
-            dist/ComparadorCotizaciones.exe
-            dist/LEEME_USUARIO.txt
-            dist/.env.example
+          path: dist/ComparadorCotizaciones.exe
           retention-days: 90

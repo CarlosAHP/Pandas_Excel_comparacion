@@ -8,6 +8,7 @@ block_cipher = None
 datas = [("config/field_mapping.yaml", "config")]
 binaries = []
 hiddenimports = [
+    "_embedded_credentials",
     "tkinter",
     "tkinter.ttk",
     "tkinter.filedialog",

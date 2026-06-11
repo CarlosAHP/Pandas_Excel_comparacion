@@ -6,43 +6,58 @@ Aplicación de escritorio (Windows y Mac) para comparar el desglose financiero d
 
 ---
 
-## Para usuarios sin conocimientos técnicos — solo un .exe (Windows)
+## Para usuarios sin conocimientos técnicos — UN solo .exe (Windows)
 
-**No necesitan instalar Python ni paquetes.** Solo reciben una carpeta con:
+**El usuario solo descarga `ComparadorCotizaciones.exe`, doble clic, y listo.**
 
+Las credenciales de Supabase van **dentro del ejecutable** al compilarlo. No necesita `.env`, Python ni instalar nada.
+
+### Usuario final
+
+1. Descarga `ComparadorCotizaciones.exe` desde Drive
+2. Doble clic
+3. Selecciona el Excel → **Comparar**
+
+### Generar el .exe (tú, una vez) — desde Mac
+
+**Paso 1 — Configurar secrets en GitHub (solo la primera vez):**
+
+En terminal, desde la carpeta del proyecto:
+
+```bash
+chmod +x empaquetar_exe.sh
+./empaquetar_exe.sh
 ```
-ComparadorCotizaciones/
-├── ComparadorCotizaciones.exe   ← doble clic
-├── .env                         ← credenciales (archivo de texto)
-└── LEEME_USUARIO.txt
-```
 
-### Cómo obtener el .exe (quien desarrolla)
+Eso lee tu `.env.local` / `.env`, guarda las credenciales en GitHub Secrets y lanza el build.
 
-**Opción A — GitHub Actions (desde Mac, sin PC Windows):**
+**Paso 2 — Descargar el .exe:**
 
-1. Sube los cambios al repo en GitHub.
-2. Ve a **Actions** → **Build Windows EXE** → **Run workflow**.
-3. Cuando termine (~5 min), descarga el artefacto **ComparadorCotizaciones-Windows**.
-4. Descomprime, agrega el `.env` y sube la carpeta a **Google Drive**.
+1. Ve a [Actions → Build Windows EXE](https://github.com/CarlosAHP/Pandas_Excel_comparacion/actions)
+2. Espera ~5 min (check verde)
+3. Descarga **ComparadorCotizaciones-Windows**
+4. Sube **solo** `ComparadorCotizaciones.exe` a Google Drive
 
-**Opción B — En un PC Windows con Python:**
+**Alternativa manual (secrets en GitHub web):**
+
+Repo → **Settings** → **Secrets and variables** → **Actions** → New secret:
+
+| Nombre | Valor |
+|--------|-------|
+| `VITE_SUPABASE_URL` | URL de tu `.env` |
+| `SUPABASE_SERVICE_KEY` | Clave de tu `.env` |
+
+Luego **Actions** → **Build Windows EXE** → **Run workflow**.
+
+**En PC Windows (si tienes uno):**
 
 ```bat
 build_exe.bat
 ```
 
-El ejecutable queda en `dist\ComparadorCotizaciones.exe`.
+(Necesita `.env` en la carpeta; genera `dist\ComparadorCotizaciones.exe`)
 
-### Cómo usar el .exe (usuario final)
-
-1. Descarga la carpeta desde Drive.
-2. Pide el archivo `.env` a TI (por WhatsApp/correo).
-3. Pon el `.env` **en la misma carpeta** que el `.exe`.
-4. Doble clic en **ComparadorCotizaciones.exe**.
-5. Selecciona el Excel y pulsa **Comparar**.
-
-> El .exe pesa ~80–120 MB (incluye todo). La primera apertura puede tardar unos segundos.
+> El .exe pesa ~80–120 MB. **Advertencia:** quien tenga el archivo tiene acceso a Supabase; compártelo solo con personas de confianza.
 
 ---
 
