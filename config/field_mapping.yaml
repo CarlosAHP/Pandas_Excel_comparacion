@@ -1,0 +1,91 @@
+# Reglas confirmadas con Daniel (respuestasdaniel.md)
+excel:
+  default_file: "01-ESTADO DE CUENTA INTERNO..xlsx"
+  sheet_pattern: "NEO2"
+  proyecto_filter: "NEO2"
+  skip_sheets:
+    - STATUS VENTAS
+    - PENDIENTES DE PAGO
+  resumen_sheet: RESUMEN
+  exclude_estatus:
+    - RE VENTA
+    - NEGOCIACION
+  prefer_sheet_contains: "correct"
+  label_columns: [B, H]
+  value_columns:
+    default: C
+    usd: I
+
+  fields:
+    proyecto:
+      labels: ["proyecto"]
+      label_column: B
+      value_column: C
+    unidad:
+      labels: ["unidad"]
+      label_column: B
+      value_column: C
+    precio_venta:
+      labels: ["precio de venta"]
+      label_column: H
+      value_column: I
+    precio_sin_impuestos:
+      labels: ["precio (no incluye impuestos ni gastos legales)"]
+      value_column: C
+    gastos_legales:
+      labels: ["gastos y honorarios legales"]
+      value_column: C
+    precio_total_con_gastos:
+      labels: ["precio total"]
+      value_column: C
+    reserva:
+      labels: ["reserva"]
+      value_column: C
+    abono_pvc:
+      labels:
+        - "al firmar promesa de compra venta"
+        - "al firmar promesa de compraventa"
+      value_column: C
+    enganche_fraccionado_mas_reserva:
+      labels: ["enganche fraccionado mas reserva"]
+      value_column: C
+    enganche:
+      labels: ["enganche"]
+      label_column: H
+      value_column: I
+    monto_financiar:
+      labels: ["monto a financiar"]
+      label_column: H
+      value_column: I
+
+supabase:
+  proyecto_filter: "NEO2"
+  join_key:
+    proyecto: nombreproyecto_producto
+    unidad: nombre_producto
+    unidad_alternativa: lote_producto
+  cotizacion_fields:
+    reserva: montoreserva_crmtratocotizacion
+    abono_pvc: montopromesa_crmtratocotizacion
+    enganche_fraccionado: engancheafraccionar_crmtratocotizacion
+    monto_financiar: montofinanciar_crmtratocotizacion
+    gastos_compra: gastoscompranofinanc_crmtratocotizacion
+    otros_cargos: otroscargosaddnofinanc_crmtratocotizacion
+    precio_total_con_gastos: preciototalygastoscompranofin_crmtratocotizacion
+    precio_venta: preciototalventa_crmtratocotizacion
+  # Enganche Supabase = engancheafraccionar + montoreserva (equivale a fila 33 Excel)
+  enganche_incluye_reserva: true
+
+comparison:
+  tolerance: 0.01
+  # Solo Excel vs cotización (sin validación interna plan/cuotas)
+  niveles:
+    - excel_vs_cotizacion
+  concept_keys:
+    - reserva
+    - abono_pvc
+    - enganche_fraccionado
+    - monto_financiar
+    - otros_gastos
+    - precio_total_con_gastos
+    - suma_desglose
