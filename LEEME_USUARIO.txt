@@ -1,0 +1,37 @@
+COMPARADOR COTIZACIONES — Excel vs Supabase (NEO2)
+==================================================
+
+INSTALACION: No hay instalacion. Solo necesitas estos archivos en UNA MISMA CARPETA:
+
+  1. ComparadorCotizaciones.exe   (doble clic para abrir)
+  2. .env                         (credenciales — te las envia tu equipo de TI)
+
+COMO CREAR EL ARCHIVO .env
+--------------------------
+1. Copia .env.example y renombralo a .env  (sin .txt al final)
+2. Abre .env con Bloc de notas
+3. Pega la URL y la clave de Supabase que te enviaron
+4. Guarda y cierra
+
+USO
+---
+1. Doble clic en ComparadorCotizaciones.exe
+2. Selecciona el Excel "01-ESTADO DE CUENTA INTERNO..xlsx"
+3. Pulsa Comparar
+4. Exportar reporte para guardar el Excel con diferencias
+
+SI WINDOWS BLOQUEA EL PROGRAMA
+------------------------------
+Clic en "Mas informacion" -> "Ejecutar de todas formas"
+(o clic derecho en el .exe -> Propiedades -> Desbloquear)
+
+SI DICE "FALTAN CREDENCIALES"
+-----------------------------
+El archivo .env no esta en la misma carpeta que el .exe, o esta mal escrito.
+
+NO NECESITAS
+------------
+- Instalar Python
+- Instalar paquetes
+- Usar GitHub
+- Usar la terminal

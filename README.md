@@ -2,11 +2,51 @@
 
 Aplicación de escritorio (Windows y Mac) para comparar el desglose financiero del Excel **01-ESTADO DE CUENTA INTERNO** contra las cotizaciones en Supabase (proyecto NEO2).
 
-**Repositorio (opcional):** [github.com/CarlosAHP/Pandas_Excel_comparacion](https://github.com/CarlosAHP/Pandas_Excel_comparacion)
+**Repositorio:** [github.com/CarlosAHP/Pandas_Excel_comparacion](https://github.com/CarlosAHP/Pandas_Excel_comparacion)
 
 ---
 
-## Obtener el proyecto — Google Drive (recomendado)
+## Para usuarios sin conocimientos técnicos — solo un .exe (Windows)
+
+**No necesitan instalar Python ni paquetes.** Solo reciben una carpeta con:
+
+```
+ComparadorCotizaciones/
+├── ComparadorCotizaciones.exe   ← doble clic
+├── .env                         ← credenciales (archivo de texto)
+└── LEEME_USUARIO.txt
+```
+
+### Cómo obtener el .exe (quien desarrolla)
+
+**Opción A — GitHub Actions (desde Mac, sin PC Windows):**
+
+1. Sube los cambios al repo en GitHub.
+2. Ve a **Actions** → **Build Windows EXE** → **Run workflow**.
+3. Cuando termine (~5 min), descarga el artefacto **ComparadorCotizaciones-Windows**.
+4. Descomprime, agrega el `.env` y sube la carpeta a **Google Drive**.
+
+**Opción B — En un PC Windows con Python:**
+
+```bat
+build_exe.bat
+```
+
+El ejecutable queda en `dist\ComparadorCotizaciones.exe`.
+
+### Cómo usar el .exe (usuario final)
+
+1. Descarga la carpeta desde Drive.
+2. Pide el archivo `.env` a TI (por WhatsApp/correo).
+3. Pon el `.env` **en la misma carpeta** que el `.exe`.
+4. Doble clic en **ComparadorCotizaciones.exe**.
+5. Selecciona el Excel y pulsa **Comparar**.
+
+> El .exe pesa ~80–120 MB (incluye todo). La primera apertura puede tardar unos segundos.
+
+---
+
+## Obtener el proyecto — Google Drive (código fuente)
 
 Si no puedes usar GitHub, pide el **ZIP por Google Drive**. Es la forma más fácil.
 
@@ -35,8 +75,9 @@ Eso crea `Pandas_Excel_comparacion.zip` en la carpeta padre (~50 KB, sin paquete
 
 ### Quien recibe el ZIP (Windows)
 
-1. Descarga el ZIP desde Drive y **descomprímelo** (clic derecho → Extraer todo).
-2. Sigue la [guía de instalación en Windows](#guía-de-instalación-en-windows): Python → `.env` → `install.bat` → `run.bat`.
+Si recibió el **.exe**, use la [sección de arriba](#para-usuarios-sin-conocimientos-técnicos--solo-un-exe-windows).
+
+Si recibió el **código fuente** (ZIP): descomprimir y seguir la [guía de instalación en Windows](#guía-de-instalación-en-windows).
 
 ### Quien recibe el ZIP (Mac)
 

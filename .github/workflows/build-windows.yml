@@ -1,0 +1,45 @@
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "config/**"
+      - "comparador.spec"
+      - "requirements.txt"
+      - ".github/workflows/build-windows.yml"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-build.txt
+
+      - name: Build executable
+        run: pyinstaller comparador.spec --noconfirm --clean
+
+      - name: Add user docs to dist
+        run: |
+          copy LEEME_USUARIO.txt dist\
+          copy .env.example dist\.env.example
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ComparadorCotizaciones-Windows
+          path: |
+            dist/ComparadorCotizaciones.exe
+            dist/LEEME_USUARIO.txt
+            dist/.env.example
+          retention-days: 90

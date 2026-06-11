@@ -1,14 +1,30 @@
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 from typing import Any
 
 import yaml
 from dotenv import load_dotenv
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
-CONFIG_PATH = ROOT_DIR / "config" / "field_mapping.yaml"
+
+def _app_dir() -> Path:
+    """Carpeta del .exe o del proyecto: aquí van .env y reportes exportados."""
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).resolve().parent
+    return Path(__file__).resolve().parent.parent
+
+
+def _bundle_dir() -> Path:
+    """Recursos empaquetados (config) dentro del ejecutable."""
+    if getattr(sys, "frozen", False):
+        return Path(getattr(sys, "_MEIPASS"))  # type: ignore[attr-defined]
+    return Path(__file__).resolve().parent.parent
+
+
+ROOT_DIR = _app_dir()
+CONFIG_PATH = _bundle_dir() / "config" / "field_mapping.yaml"
 
 
 def load_mapping() -> dict[str, Any]:
@@ -30,8 +46,14 @@ def get_supabase_credentials() -> tuple[str, str]:
         or os.getenv("VITE_SUPABASE_ANON_KEY")
     )
     if not url or not key:
+        env_path = ROOT_DIR / ".env"
         raise RuntimeError(
-            "Faltan credenciales Supabase. Define VITE_SUPABASE_URL y SUPABASE_SERVICE_KEY en .env/.env.local"
+            "Faltan credenciales Supabase.\n\n"
+            f"Crea el archivo:\n  {env_path}\n\n"
+            "Con estas líneas:\n"
+            "  VITE_SUPABASE_URL=https://tu-proyecto.supabase.co\n"
+            "  SUPABASE_SERVICE_KEY=tu_clave\n\n"
+            "(Copia .env.example y renómbralo a .env)"
         )
     return url, key
 
