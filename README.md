@@ -2,16 +2,79 @@
 
 Aplicación de escritorio (Windows y Mac) para comparar el desglose financiero del Excel **01-ESTADO DE CUENTA INTERNO** contra las cotizaciones en Supabase (proyecto NEO2).
 
-**Repositorio:** [github.com/CarlosAHP/Pandas_Excel_comparacion](https://github.com/CarlosAHP/Pandas_Excel_comparacion)
+**Repositorio (opcional):** [github.com/CarlosAHP/Pandas_Excel_comparacion](https://github.com/CarlosAHP/Pandas_Excel_comparacion)
 
 ---
 
-## Obtener el proyecto desde GitHub
+## Obtener el proyecto — Google Drive (recomendado)
+
+Si no puedes usar GitHub, pide el **ZIP por Google Drive**. Es la forma más fácil.
+
+### Quien envía el proyecto (una sola vez)
+
+En Mac, desde la carpeta del proyecto:
+
+```bash
+chmod +x empaquetar_para_drive.sh
+./empaquetar_para_drive.sh
+```
+
+Eso crea `Pandas_Excel_comparacion.zip` en la carpeta padre (~50 KB, sin paquetes pesados).
+
+1. Sube ese ZIP a **Google Drive**.
+2. Comparte el enlace con el equipo.
+3. Envía el archivo **`.env`** por un canal seguro aparte (WhatsApp directo, correo interno, etc.). **No lo metas dentro del ZIP público.**
+
+**Qué NO va en el ZIP (se instala solito en cada PC):**
+
+| Carpeta/archivo | Por qué no se comparte |
+|-----------------|------------------------|
+| `.venv/` | Paquetes de Python (~165 MB). Cada Mac/PC los descarga con `install.bat` o `run.sh` |
+| `.env` / `.env.local` | Credenciales secretas de Supabase |
+| `.git/` | Historial de Git, no hace falta |
+
+### Quien recibe el ZIP (Windows)
+
+1. Descarga el ZIP desde Drive y **descomprímelo** (clic derecho → Extraer todo).
+2. Sigue la [guía de instalación en Windows](#guía-de-instalación-en-windows): Python → `.env` → `install.bat` → `run.bat`.
+
+### Quien recibe el ZIP (Mac)
+
+1. Descarga el ZIP desde Drive y descomprímelo (doble clic).
+2. Abre **Terminal** y ve a la carpeta:
+
+```bash
+cd ~/Downloads/Pandas_Excel_comparacion
+```
+
+(Ajusta la ruta si lo guardaste en Documentos u otra carpeta.)
+
+3. Instala Python con interfaz gráfica (solo la primera vez):
+
+```bash
+brew install python@3.12 python-tk@3.12
+```
+
+Si no tienes Homebrew: [brew.sh](https://brew.sh)
+
+4. Crea el archivo `.env` con las credenciales de Supabase (copia `.env.example` y completa los valores).
+
+5. Arranca la app:
+
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+La primera vez `run.sh` crea `.venv` e **instala los paquetes solos** (pandas, supabase, etc.). Tarda 1–2 minutos.
+
+6. Coloca el Excel `01-ESTADO DE CUENTA INTERNO..xlsx` en la carpeta o selecciónalo en la app.
+
+---
+
+## Obtener el proyecto — GitHub (alternativa)
 
 ### Windows
-
-1. Instala [Git para Windows](https://git-scm.com/download/win) (si no lo tienes).
-2. Abre CMD o PowerShell y clona el repo:
 
 ```bat
 cd %USERPROFILE%\Documents
@@ -19,7 +82,7 @@ git clone https://github.com/CarlosAHP/Pandas_Excel_comparacion.git
 cd Pandas_Excel_comparacion
 ```
 
-3. Sigue la [guía de instalación en Windows](#guía-de-instalación-en-windows) (Python, `.env`, `install.bat`, `run.bat`).
+Luego: [guía Windows](#guía-de-instalación-en-windows).
 
 ### Mac
 
@@ -27,10 +90,9 @@ cd Pandas_Excel_comparacion
 cd ~/Documents
 git clone https://github.com/CarlosAHP/Pandas_Excel_comparacion.git
 cd Pandas_Excel_comparacion
+brew install python@3.12 python-tk@3.12
 ./run.sh
 ```
-
-> El archivo Excel **no** va en el repo. Coloca `01-ESTADO DE CUENTA INTERNO..xlsx` en la carpeta del proyecto o selecciónalo desde la app.
 
 ---
 
